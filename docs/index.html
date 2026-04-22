@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evan Tronconi · Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0d1117;
+            color: #e6edf5;
+            line-height: 1.55;
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --bg-page: #0d1117;
+            --bg-card: #161b22;
+            --bg-elevated: #1a212c;
+            --border: #2d3748;
+            --border-light: #3a4559;
+            --primary: #e28c3c;
+            --primary-dark: #c2712a;
+            --primary-soft: #f0a55a;
+            --primary-glow: rgba(226, 140, 60, 0.12);
+            --text: #f0f4fa;
+            --text-muted: #9aaec2;
+            --shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* header */
+        header {
+            position: sticky;
+            top: 0;
+            background: rgba(13, 17, 23, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
+            z-index: 100;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #ffffff, var(--primary-soft));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* hero */
+        .hero {
+            padding: 5rem 0 4rem;
+        }
+
+        .hero-content {
+            max-width: 720px;
+        }
+
+        .hero-badge {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--primary);
+            margin-bottom: 1.2rem;
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 span {
+            color: var(--primary);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.7rem 1.8rem;
+            border-radius: 40px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #0d1117;
+            font-weight: 600;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            border: 1px solid var(--border);
+            color: var(--text);
+            background: transparent;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+            background: var(--primary-glow);
+        }
+
+        /* sezioni */
+        section {
+            padding: 5rem 0;
+        }
+
+        .section-header {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-sub {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        /* about con foto - versione piccola come nel vecchio portfolio */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .about-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 1.5rem;
+            overflow: hidden;
+        }
+
+        /* Card sinistra con foto piccola centrata */
+        .profile-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 2rem 1.5rem;
+        }
+
+        .profile-image {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-bottom: 1.2rem;
+            border: 3px solid var(--primary);
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .profile-title {
+            color: var(--primary-soft);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .info-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .info-row i {
+            width: 1.4rem;
+            color: var(--primary);
+        }
+
+        /* Card destra descrizione */
+        .description-card {
+            padding: 1.8rem;
+            border-left: 3px solid var(--primary);
+        }
+
+        .description-card p {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .badge-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        .badge {
+            background: var(--primary-glow);
+            color: var(--primary-soft);
+            padding: 0.4rem 1rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* interessi */
+        .interests-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .interest-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 1.2rem;
+            padding: 1.5rem;
+            text-align: center;
+            transition: 0.2s;
+        }
+
+        .interest-card:hover {
+            border-color: var(--primary);
+        }
+
+        .interest-icon {
+            font-size: 2.2rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .interest-card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .interest-card p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+
+        /* TABS per le esperienze */
+        .tabs-container {
+            background: var(--bg-card);
+            border-radius: 1.5rem;
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .tabs-header {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg-elevated);
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+
+        .tab-btn:hover {
+            color: var(--primary-soft);
+            background: var(--primary-glow);
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+            background: var(--bg-card);
+        }
+
+        .tab-content {
+            display: none;
+            padding: 2rem;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* griglia esperienze */
+        .experiences-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .exp-card {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 1.2rem;
+            overflow: hidden;
+            transition: 0.2s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .exp-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary);
+        }
+
+        .exp-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            padding: 1.2rem 1.5rem;
+            color: #0d1117;
+        }
+
+        .exp-header h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .exp-date {
+            font-size: 0.75rem;
+            opacity: 0.85;
+        }
+
+        .exp-body {
+            padding: 1.5rem;
+        }
+
+        .exp-body p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .exp-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .exp-skill {
+            background: var(--primary-glow);
+            color: var(--primary-soft);
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+
+        .placeholder-card {
+            background: var(--bg-elevated);
+            border: 1px dashed var(--border);
+            border-radius: 1.2rem;
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        .placeholder-card i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+            display: block;
+        }
+
+        /* competenze tecniche */
+        .tech-skills {
+            background: var(--bg-card);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            border: 1px solid var(--border);
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .tech-cat h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary-soft);
+        }
+
+        .tech-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tech-item {
+            background: var(--bg-elevated);
+            padding: 0.3rem 0.9rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            border: 1px solid var(--border);
+        }
+
+        /* competenze europee */
+        .competences-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+
+        .competence-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 1.2rem;
+            text-align: center;
+        }
+
+        .competence-card h3 {
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+
+        .progress-bar {
+            background: var(--border);
+            height: 6px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+
+        .progress-fill {
+            background: var(--primary);
+            height: 100%;
+            border-radius: 10px;
+        }
+
+        /* contatti */
+        .contact-card {
+            background: var(--bg-card);
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1.5rem 0;
+        }
+
+        .contact-link {
+            background: var(--bg-elevated);
+            padding: 0.6rem 1.3rem;
+            border-radius: 40px;
+            text-decoration: none;
+            color: var(--text);
+            border: 1px solid var(--border);
+            transition: 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .contact-link:hover {
+            border-color: var(--primary);
+            background: var(--primary-glow);
+        }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+        }
+
+        .fade-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 900px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+            .interests-grid {
+                grid-template-columns: 1fr;
+            }
+            .competences-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .container {
+                padding: 0 1.5rem;
+            }
+            .nav-links {
+                display: none;
+            }
+            .tab-btn {
+                font-size: 0.85rem;
+                padding: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container nav">
+        <a href="#" class="logo">Evan Tronconi</a>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">Chi sono</a></li>
+            <li><a href="#experiences">Esperienze</a></li>
+            <li><a href="#skills">Competenze</a></li>
+            <li><a href="#contact">Contatti</a></li>
+        </ul>
+    </div>
+</header>
+
+<main>
+    <!-- Hero -->
+    <section id="home" class="hero">
+        <div class="container hero-content">
+            <div class="hero-badge">studente di informatica</div>
+            <h1>Ciao, sono <span>Evan Tronconi</span></h1>
+            <p>Studente di informatica con una passione per la tecnologia, lo sport e la musica.</p>
+            <div class="btn-group">
+                <a href="#about" class="btn btn-primary"><i class="fas fa-arrow-down"></i> Scopri di più</a>
+                <a href="#contact" class="btn btn-outline"><i class="fas fa-comment"></i> Contattami</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chi sono con foto piccola e tonda -->
+    <section id="about">
+        <div class="container">
+            <div class="about-grid">
+                <!-- Card sinistra: foto tonda piccola + info -->
+                <div class="about-card profile-card fade-up">
+                    <div class="profile-image">
+                        <img src="img/io2.jpg" alt="Evan Tronconi">
+                    </div>
+                    <h2 class="profile-name">Evan Tronconi</h2>
+                    <div class="profile-title">Studente di Informatica · 18 anni</div>
+                    <div class="info-row"><i class="fas fa-map-marker-alt"></i> Reggio Emilia, Italia</div>
+                    <div class="info-row"><i class="fas fa-graduation-cap"></i> Istituto Blaise Pascal · Informatica</div>
+                </div>
+
+                <!-- Card destra: descrizione -->
+                <div class="about-card description-card fade-up">
+                    <p>Mi chiamo Evan Tronconi, ho 18 anni e studio all'Istituto Blaise Pascal di Reggio Emilia, indirizzo informatico. Fin da piccolo sono sempre stato un ragazzo curioso e appassionato di tecnologia: mi piace molto lavorare con l'elettronica, sperimentare nuovi progetti e capire a fondo come funzionano le cose, smontando e rimontando componenti per imparare dai meccanismi più semplici a quelli più complessi.</p>
+                    <p>Nel tempo libero adoro giocare a calcio, una passione che coltivo da anni e che mi aiuta a liberare la mente e a mantenere lo spirito di squadra. Amo anche ascoltare musica in ogni suo genere e suonare il basso elettrico, un'attività che mi permette di esprimere la mia creatività e di staccare dalla routine quotidiana.</p>
+                    <div class="badge-group">
+                        <span class="badge">Problem solving</span>
+                        <span class="badge">Curiosità</span>
+                        <span class="badge">Lavoro di squadra</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interessi 
+            <div class="interests-grid fade-up">
+                <div class="interest-card">
+                    <div class="interest-icon">🎵</div>
+                    <h3>Musica</h3>
+                    <p>Suono il basso elettrico e amo esplorare nuovi generi musicali.</p>
+                </div>
+                <div class="interest-card">
+                    <div class="interest-icon">🔧</div>
+                    <h3>Elettronica</h3>
+                    <p>Sperimento con Arduino, circuiti e componenti hardware.</p>
+                </div>
+                <div class="interest-card">
+                    <div class="interest-icon">⚽</div>
+                    <h3>Sport</h3>
+                    <p>Il calcio mi aiuta a mantenere equilibrio e spirito di squadra.</p>
+                </div>
+            </div>-->
+        </div>
+    </section>
+
+    <!-- Esperienze con TABS -->
+    <section id="experiences">
+        <div class="container">
+            <div class="section-header fade-up">
+                <h2 class="section-title">Esperienze</h2>
+                <p class="section-sub">Il mio percorso formativo, anno per anno.</p>
+            </div>
+
+            <div class="tabs-container fade-up">
+                <div class="tabs-header">
+                    <button class="tab-btn active" data-tab="third"> 3° Anno</button>
+                    <button class="tab-btn" data-tab="fourth"> 4° Anno</button>
+                    <button class="tab-btn" data-tab="fifth"> 5° Anno</button>
+                </div>
+
+                    <!-- TERZO ANNO -->
+    <div id="tab-third" class="tab-content active">
+        <div class="experiences-grid">
+            <a href="3anno.html?progetto=busconnect" class="exp-card">
+                <div class="exp-header">
+                    <h3>Busconnect</h3>
+                    <span class="exp-date">2024/2025 · 10 ore</span>
+                </div>
+                <div class="exp-body">
+                    <p>Ho partecipato a un'attività in cui noi studenti delle classi terze abbiamo tenuto lezioni di formazione digitale per anziani.</p>
+                    <div class="exp-skills">
+                        <span class="exp-skill">Educazione Digitale</span>
+                        <span class="exp-skill">Comunicazione</span>
+                        <span class="exp-skill">Supporto Tecnologico</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="3anno.html?progetto=monta" class="exp-card">
+                <div class="exp-header" style="background: linear-gradient(135deg, #2b6e4f, #1e5a3f);">
+                    <h3>Monta e Smonta</h3>
+                    <span class="exp-date">2024/2025 · 4 ore</span>
+                </div>
+                <div class="exp-body">
+                    <p>Attività pratica di disassemblaggio e assemblaggio di un PC, riconoscimento componenti hardware.</p>
+                    <div class="exp-skills">
+                        <span class="exp-skill">Hardware</span>
+                        <span class="exp-skill">Assemblaggio PC</span>
+                        <span class="exp-skill">Manutenzione</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="3anno.html?progetto=ust" class="exp-card">
+                <div class="exp-header" style="background: linear-gradient(135deg, #5b21b6, #4c1d95);">
+                    <h3>UST</h3>
+                    <span class="exp-date">2024/2025 · 2 ore</span>
+                </div>
+                <div class="exp-body">
+                    <p>Incontro introduttivo sul PCTO con test online e attività di gruppo sulle competenze trasversali.</p>
+                    <div class="exp-skills">
+                        <span class="exp-skill">Orientamento</span>
+                        <span class="exp-skill">Organizzazione</span>
+                        <span class="exp-skill">Competenze Trasversali</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+                <!-- QUARTO ANNO -->
+<div id="tab-fourth" class="tab-content">
+    <div class="experiences-grid">
+        <!-- Polarity part 1 -->
+        <a href="4anno.html?progetto=polarity" class="exp-card">
+            <div class="exp-header" style="background: linear-gradient(135deg, #7c3aed, #5b21b6);">
+                <h3>Polarity</h3>
+                <span class="exp-date">2025/2026 · 2 ore</span>
+            </div>
+            <div class="exp-body">
+                <p>Incontro con Polarity: panoramica dello sviluppo web, classificazione dei linguaggi di programmazione e loro utilizzo applicativo.</p>
+                <div class="exp-skills">
+                    <span class="exp-skill">Sviluppo Web</span>
+                    <span class="exp-skill">Linguaggi di programmazione</span>
+                    <span class="exp-skill">Orientamento</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- Sicurezza D.Lgs. 81/08 
+        <a href="sicurezza.html" class="exp-card">
+            <div class="exp-header" style="background: linear-gradient(135deg, #0891b2, #0e7490);">
+                <h3>Sicurezza · D.Lgs. 81/08</h3>
+                <span class="exp-date">2025/2026 · 1 ora</span>
+            </div>
+            <div class="exp-body">
+                <p>Aggiornamento sulla sicurezza ai sensi del D.Lgs. 81/08, con particolare attenzione al piano di emergenza e al rischio elettrico. Relatore: Sergio Prisinzano.</p>
+                <div class="exp-skills">
+                    <span class="exp-skill">Sicurezza sul lavoro</span>
+                    <span class="exp-skill">Piano di emergenza</span>
+                    <span class="exp-skill">Rischio elettrico</span>
+                </div>
+            </div>
+        </a>-->
+
+        <!-- CNA - Incontro aziende territorio -->
+        <a href="4anno.html?progetto=cna" class="exp-card">
+            <div class="exp-header" style="background: linear-gradient(135deg, #2b6e4f, #1e5a3f);">
+                <h3>CNA</h3>
+                <span class="exp-date">2025/2026 · 4 ore</span>
+            </div>
+            <div class="exp-body">
+                <p>Incontro con aziende del territorio. Progetto FSL/ORIENTAMENTO - CNA</p>
+                <div class="exp-skills">
+                    <span class="exp-skill">Orientamento</span>
+                    <span class="exp-skill">Mondo del lavoro</span>
+                    <span class="exp-skill">Relazioni aziendali</span>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+                <!-- QUINTO ANNO -->
+                <div id="tab-fifth" class="tab-content">
+                    <div class="experiences-grid">
+                        <div class="placeholder-card">
+                            <i class="fas fa-rocket"></i>
+                            <h3>Prossimamente</h3>
+                            <p style="font-size: 0.8rem; margin-top: 0.5rem;"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Competenze -->
+    <section id="skills">
+        <div class="container">
+            <div class="section-header fade-up">
+                <h2 class="section-title">Competenze</h2>
+                <p class="section-sub">Competenze tecniche e chiave europee sviluppate durante il mio percorso.</p>
+            </div>
+
+            <!--<div class="tech-skills fade-up">
+                <div class="tech-grid">
+                    <div class="tech-cat">
+                        <h3><i class="fas fa-code"></i> Linguaggi</h3>
+                        <div class="tech-items">
+                            <span class="tech-item">C++</span>
+                            <span class="tech-item">Java</span>
+                            <span class="tech-item">JavaScript</span>
+                            <span class="tech-item">HTML/CSS</span>
+                        </div>
+                    </div>
+                    <div class="tech-cat">
+                        <h3><i class="fas fa-microchip"></i> Hardware</h3>
+                        <div class="tech-items">
+                            <span class="tech-item">Arduino</span>
+                            <span class="tech-item">Assemblaggio PC</span>
+                            <span class="tech-item">Manutenzione</span>
+                            <span class="tech-item">Componenti HW</span>
+                        </div>
+                    </div>
+                    <div class="tech-cat">
+                        <h3><i class="fas fa-tools"></i> Strumenti</h3>
+                        <div class="tech-items">
+                            <span class="tech-item">Git/GitHub</span>
+                            <span class="tech-item">VS Code</span>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+
+            <div style="margin-top: 2rem;">
+                <!--<h3 style="font-size: 1.2rem; margin-bottom: 1.5rem;">Competenze chiave europee</h3>-->
+                <div class="competences-grid fade-up">
+                    <div class="competence-card"><h3>Competenza alfabetica funzionale</h3><div class="progress-bar"><div class="progress-fill" style="width: 80%;"></div></div></div>
+                    <div class="competence-card"><h3>Competenza multilinguistica</h3><div class="progress-bar"><div class="progress-fill" style="width: 75%;"></div></div></div>
+                    <div class="competence-card"><h3>Competenza matematica e scienze</h3><div class="progress-bar"><div class="progress-fill" style="width: 70%;"></div></div></div>
+                    <div class="competence-card"><h3>Competenza digitale</h3><div class="progress-bar"><div class="progress-fill" style="width: 85%;"></div></div></div>
+                    <div class="competence-card"><h3>Competenza personale e sociale</h3><div class="progress-bar"><div class="progress-fill" style="width: 80%;"></div></div></div>
+                    <div class="competence-card"><h3>Competenza sociale e civica</h3><div class="progress-bar"><div class="progress-fill" style="width: 75%;"></div></div></div>
+                    <div class="competence-card"><h3>Competenza imprenditoriale</h3><div class="progress-bar"><div class="progress-fill" style="width: 65%;"></div></div></div>
+                    <div class="competence-card"><h3>Consapevolezza ed espressione culturale</h3><div class="progress-bar"><div class="progress-fill" style="width: 70%;"></div></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contatti -->
+    <section id="contact">
+        <div class="container">
+            <div class="contact-card fade-up">
+                <i class="fas fa-paper-plane" style="font-size: 2rem; color: var(--primary); margin-bottom: 0.5rem;"></i>
+                <h2 class="section-title" style="margin-bottom: 0.3rem;">Contattami</h2>
+                <div class="contact-links">
+                    <a href="mailto:evantronconi08@gmail.com" class="contact-link"><i class="fas fa-envelope"></i> evantronconi08@gmail.com</a>
+                </div>
+                <div class="info-row" style="justify-content: center; margin-top: 1rem;">
+                    <i class="fas fa-map-marker-alt"></i> Reggio Emilia, Italia
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container">© 2026 Evan Tronconi. Tutti i diritti riservati.</div>
+</footer>
+
+<script>
+    // fade-up animation
+    const fadeElements = document.querySelectorAll('.fade-up');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: "0px 0px -30px 0px" });
+    fadeElements.forEach(el => observer.observe(el));
+
+    // TABS per le esperienze
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const tabId = btn.getAttribute('data-tab');
+            
+            tabBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            tabContents.forEach(content => content.classList.remove('active'));
+            
+            if (tabId === 'third') {
+                document.getElementById('tab-third').classList.add('active');
+            } else if (tabId === 'fourth') {
+                document.getElementById('tab-fourth').classList.add('active');
+            } else if (tabId === 'fifth') {
+                document.getElementById('tab-fifth').classList.add('active');
+            }
+        });
+    });
+</script>
+</body>
+</html>
