@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sicurezza · D.Lgs. 81/08 · Evan Tronconi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #0d1117; color: #e6edf5; line-height: 1.55; }
+        :root {
+            --bg-page: #0d1117; --bg-card: #161b22; --bg-elevated: #1a212c;
+            --border: #2d3748; --border-light: #3a4559;
+            --primary: #e28c3c; --primary-dark: #c2712a; --primary-soft: #f0a55a;
+            --primary-glow: rgba(226, 140, 60, 0.12);
+            --text: #f0f4fa; --text-muted: #9aaec2;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        .page-header { background: linear-gradient(135deg, #0d1117, #0a0e14); border-bottom: 1px solid var(--border); padding: 2rem 0; }
+        .back-link { position: fixed; top: 1.5rem; left: 1.5rem; z-index: 100; background: var(--bg-card); border: 1px solid var(--border); border-radius: 40px; padding: 0.6rem 1.2rem; color: var(--text); text-decoration: none; font-size: 0.85rem; font-weight: 500; transition: 0.2s; display: inline-flex; align-items: center; gap: 0.5rem; backdrop-filter: blur(8px); }
+        .back-link:hover { border-color: var(--primary); color: var(--primary); transform: translateX(-3px); }
+        .header-content { text-align: center; }
+        .header-title { font-size: 2.5rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.5rem; background: linear-gradient(135deg, #ffffff, var(--primary-soft)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .header-subtitle { font-size: 1rem; color: var(--text-muted); }
+.project-nav { background: var(--bg-card); border-bottom: 1px solid var(--border); padding: 0.75rem 0; position: sticky; top: 0; z-index: 99; backdrop-filter: blur(8px); margin-bottom: 2.5rem; }
+        .project-nav-container { display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
+        .nav-buttons-left { display: flex; gap: 0.75rem; }
+        .nav-buttons-right { display: flex; gap: 0.75rem; }
+        .nav-center-group { display: flex; justify-content: center; gap: 0.75rem; flex: 1; }
+        .nav-project-btn { background: transparent; border: 1px solid var(--border); color: var(--text-muted); padding: 0.5rem 0; border-radius: 40px; font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: 0.2s; font-family: inherit; width: 140px; text-align: center; }
+        .nav-project-btn:hover { border-color: var(--primary); color: var(--primary); }
+        .nav-project-btn.active { background: var(--primary); border-color: var(--primary); color: #0d1117; }
+        .year-nav-btn { background: transparent; border: 1px solid var(--primary); color: var(--primary); padding: 0.5rem 0; border-radius: 40px; font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: 0.2s; font-family: inherit; width: 120px; text-align: center; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; }
+        .year-nav-btn:hover { background: var(--primary-glow); }
+        .year-nav-btn.prev:hover { transform: translateX(-3px); }
+        .year-nav-btn.next:hover { transform: translateX(3px); }
+        section { padding: 2.5rem 0; }
+        .project-page { display: none; }
+        .project-page.active-page { display: block; }
+        .exp-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 1.5rem; overflow: hidden; transition: 0.2s; margin-bottom: 2rem; }
+        .exp-card:hover { transform: translateY(-3px); border-color: var(--primary); }
+        .exp-card-header { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); padding: 0.8rem 1.5rem; }
+        .exp-card-header h2 { font-size: 1.3rem; font-weight: 600; color: #0d1117; }
+        .exp-card-content { display: flex; flex-wrap: wrap; gap: 1.5rem; padding: 1.8rem; }
+        .exp-card-content.reverse { flex-direction: row-reverse; }
+        .exp-image { flex: 1; min-width: 200px; }
+        .exp-image img { width: 100%; height: 220px; object-fit: cover; border-radius: 1rem; transition: 0.2s; }
+        .exp-text { flex: 2; }
+        .exp-text p { color: var(--text-muted); margin-bottom: 0.5rem; line-height: 1.6; }
+        .skills-list { list-style: none; margin-top: 1rem; }
+        .skills-list li { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.8rem; color: var(--text-muted); }
+        .skills-list li i { color: var(--primary); width: 1.4rem; }
+        .highlight-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 1.5rem; overflow: hidden; position: relative; margin-bottom: 2rem; }
+        .highlight-card::before { content: ''; position: absolute; top: 0; left: 0; width: 6px; height: 100%; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); }
+        .highlight-content { padding: 2rem; margin-left: 0.5rem; }
+        .highlight-content h2 { font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; }
+        .highlight-content p { color: var(--text-muted); line-height: 1.6; }
+        footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; color: var(--text-muted); font-size: 0.75rem; margin-top: 2rem; }
+        @media (max-width: 900px) {
+            .project-nav-container { flex-direction: column; align-items: stretch; }
+            .nav-center-group { order: 1; }
+            .nav-buttons-left { order: 2; justify-content: center; }
+            .nav-buttons-right { order: 3; justify-content: center; }
+            .exp-card-content { flex-direction: column; }
+            .exp-card-content.reverse { flex-direction: column; }
+            .header-title { font-size: 1.8rem; }
+            .container { padding: 0 1.5rem; }
+            .highlight-content { padding: 1.5rem; }
+            .nav-project-btn, .year-nav-btn { width: 110px; font-size: 0.75rem; padding: 0.4rem 0; }
+        }
+    </style>
+</head>
+<body>
+
+<a href="home.html" class="back-link" id="backLink"><i class="fas fa-arrow-left"></i> Torna alla Home</a>
+
+<header class="page-header">
+    <div class="container header-content">
+        <h1 class="header-title">Esperienze 4° Anno</h1>
+        <p class="header-subtitle">PCTO · Percorsi per le Competenze Trasversali e l'Orientamento</p>
+    </div>
+</header>
+
+<div class="project-nav">
+    <div class="container project-nav-container">
+        <div class="nav-buttons-left">
+            <button class="year-nav-btn prev" id="prevYearBtn">← 3° Anno</button>
+        </div>
+        <div class="nav-center-group">
+            <button class="nav-project-btn" data-project="polarity">Polarity</button>
+            <button class="nav-project-btn active" data-project="sicurezza">Sicurezza</button>
+            <button class="nav-project-btn" data-project="cna">CNA</button>
+        </div>
+        <div class="nav-buttons-right">
+            <button class="year-nav-btn next" id="nextYearBtn">5° Anno →</button>
+        </div>
+    </div>
+</div>
+
+<main>
+    <div class="container">
+        <!-- POLARITY -->
+        <div id="project-polarity" class="project-page">
+            <div class="highlight-card"><div class="highlight-content"><h2>Introduzione</h2><p>Incontro con Polarity, un'azienda specializzata nello sviluppo web e nella consulenza digitale. L'incontro ha fornito una panoramica completa sul mondo dello sviluppo web moderno.</p></div></div>
+            <div class="exp-card"><div class="exp-card-header"><h2>Contenuti dell'incontro</h2></div><div class="exp-card-content"><div class="exp-image"><img src="img/polarity.jpg" alt="Incontro Polarity" onerror="this.src='https://placehold.co/600x400/1a212c/9aaec2?text=Polarity'"></div><div class="exp-text"><p>Matteo Di Claudio ha illustrato la classificazione dei linguaggi di programmazione (front-end, back-end, full-stack) e i loro utilizzi applicativi nel mondo del lavoro. Abbiamo esplorato le tecnologie più richieste dalle aziende e le competenze necessarie per intraprendere una carriera nello sviluppo web.</p></div></div></div>
+            <div class="exp-card"><div class="exp-card-header"><h2>Competenze sviluppate</h2></div><div class="exp-card-content reverse"><div class="exp-image"><img src="img/polarity2.jpg" alt="Competenze sviluppo web" onerror="this.src='https://placehold.co/600x400/1a212c/9aaec2?text=Sviluppo+Web'"></div><div class="exp-text"><p>L'incontro mi ha permesso di comprendere meglio il panorama dello sviluppo web professionale, le differenze tra i vari linguaggi e come orientarmi nella scelta di un percorso formativo nel settore IT.</p></div></div></div>
+            <div class="highlight-card"><div class="highlight-content"><h2>Competenze Acquisite</h2><ul class="skills-list"><li><i class="fas fa-code"></i> Conoscenza dei linguaggi front-end e back-end</li><li><i class="fas fa-chart-line"></i> Panoramica del mercato del lavoro IT</li><li><i class="fas fa-briefcase"></i> Orientamento professionale nel settore web</li><li><i class="fas fa-rocket"></i> Tecnologie emergenti e framework moderni</li></ul></div></div>
+        </div>
+
+        <!-- SICUREZZA -->
+        <div id="project-sicurezza" class="project-page active-page">
+            <div class="highlight-card">
+                <div class="highlight-content">
+                    <h2>Introduzione</h2>
+                    <p>Aggiornamento obbligatorio sulla sicurezza ai sensi del D.Lgs. 81/08, con particolare attenzione al piano di emergenza e al rischio elettrico negli ambienti di lavoro.</p>
+                </div>
+            </div>
+            <div class="exp-card">
+                <div class="exp-card-header"><h2>Contenuti del corso</h2></div>
+                <div class="exp-card-content">
+                    <div class="exp-image"><img src="img/sicurezza.jpg" alt="Corso sicurezza" onerror="this.src='https://placehold.co/600x400/1a212c/9aaec2?text=Sicurezza+sul+lavoro'"></div>
+                    <div class="exp-text"><p>Il relatore Sergio Prisinzano ha approfondito le normative sulla sicurezza nei luoghi di lavoro, con focus sul piano di emergenza e le procedure da seguire in caso di incidenti. Particolare attenzione è stata dedicata al rischio elettrico, uno dei pericoli più comuni nell'ambiente informatico e nei laboratori.</p></div>
+                </div>
+            </div>
+            <div class="exp-card">
+                <div class="exp-card-header"><h2>Normative e procedure</h2></div>
+                <div class="exp-card-content reverse">
+                    <div class="exp-image"><img src="img/sicurezza2.jpg" alt="Normative sicurezza" onerror="this.src='https://placehold.co/600x400/1a212c/9aaec2?text=D.Lgs.+81/08'"></div>
+                    <div class="exp-text"><p>Abbiamo analizzato il D.Lgs. 81/08, comprendendo i diritti e doveri dei lavoratori, le misure di prevenzione e protezione, e l'importanza della formazione continua in materia di sicurezza.</p></div>
+                </div>
+            </div>
+            <div class="highlight-card">
+                <div class="highlight-content">
+                    <h2>Competenze Acquisite</h2>
+                    <ul class="skills-list">
+                        <li><i class="fas fa-shield-alt"></i> Conoscenza del D.Lgs. 81/08</li>
+                        <li><i class="fas fa-bolt"></i> Prevenzione del rischio elettrico</li>
+                        <li><i class="fas fa-ambulance"></i> Procedure di piano di emergenza</li>
+                        <li><i class="fas fa-clipboard-list"></i> Diritti e doveri dei lavoratori</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- CNA -->
+        <div id="project-cna" class="project-page">
+            <div class="highlight-card">
+                <div class="highlight-content">
+                    <h2>Introduzione</h2>
+                    <p>Incontro con le aziende del territorio organizzato da CNA (Confederazione Nazionale dell'Artigianato e della Piccola e Media Impresa) per le classi quarte, nell'ambito del progetto FSL/ORIENTAMENTO.</p>
+                </div>
+            </div>
+            <div class="exp-card">
+                <div class="exp-card-header"><h2>Incontro con le aziende</h2></div>
+                <div class="exp-card-content">
+                    <div class="exp-image"><img src="img/cna.jpg" alt="Incontro CNA" onerror="this.src='https://placehold.co/600x400/1a212c/9aaec2?text=CNA+aziende'"></div>
+                    <div class="exp-text"><p>Elisa Valentini ha presentato diverse realtà imprenditoriali del territorio, spiegando il loro funzionamento, le figure professionali richieste e le opportunità di stage e inserimento lavorativo per i giovani.</p></div>
+                </div>
+            </div>
+            <div class="exp-card">
+                <div class="exp-card-header"><h2>Orientamento al lavoro</h2></div>
+                <div class="exp-card-content reverse">
+                    <div class="exp-image"><img src="img/cna2.jpg" alt="Orientamento CNA" onerror="this.src='https://placehold.co/600x400/1a212c/9aaec2?text=Orientamento'"></div>
+                    <div class="exp-text"><p>L'incontro ha permesso di conoscere le competenze più richieste dalle aziende locali, i percorsi di formazione post-diploma e le modalità di candidatura per stage e tirocini.</p></div>
+                </div>
+            </div>
+            <div class="highlight-card">
+                <div class="highlight-content">
+                    <h2>Competenze Acquisite</h2>
+                    <ul class="skills-list">
+                        <li><i class="fas fa-building"></i> Conoscenza del tessuto imprenditoriale locale</li>
+                        <li><i class="fas fa-handshake"></i> Relazioni con le aziende del territorio</li>
+                        <li><i class="fas fa-graduation-cap"></i> Percorsi post-diploma e opportunità formative</li>
+                        <li><i class="fas fa-file-signature"></i> Modalità di candidatura per stage</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="container">© 2025 Evan Tronconi. Tutti i diritti riservati.</div>
+</footer>
+
+<script>
+    const navBtns = document.querySelectorAll('.nav-project-btn');
+    const projectPages = document.querySelectorAll('.project-page');
+
+    navBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const projectId = btn.getAttribute('data-project');
+            navBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            projectPages.forEach(page => page.classList.remove('active-page'));
+            if (projectId === 'polarity') {
+                document.getElementById('project-polarity').classList.add('active-page');
+            } else if (projectId === 'sicurezza') {
+                document.getElementById('project-sicurezza').classList.add('active-page');
+            } else if (projectId === 'cna') {
+                document.getElementById('project-cna').classList.add('active-page');
+            }
+        });
+    });
+
+    // Tasto per andare al 3° anno → porta a busconnect.html
+    const prevYearBtn = document.getElementById('prevYearBtn');
+    prevYearBtn.addEventListener('click', () => {
+        sessionStorage.setItem('scrollPosition', window.scrollY);
+        window.location.href = 'busconnect.html';
+    });
+
+    // Tasto per andare al 5° anno
+    const nextYearBtn = document.getElementById('nextYearBtn');
+    nextYearBtn.addEventListener('click', () => {
+        sessionStorage.setItem('scrollPosition', window.scrollY);
+        window.location.href = 'home.html';
+    });
+
+    const backLink = document.getElementById('backLink');
+    backLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        sessionStorage.setItem('scrollPosition', window.scrollY);
+        window.location.href = backLink.getAttribute('href');
+    });
+
+    window.addEventListener('load', () => {
+        const savedPosition = sessionStorage.getItem('scrollPosition');
+        if (savedPosition !== null) {
+            window.scrollTo(0, parseInt(savedPosition));
+            sessionStorage.removeItem('scrollPosition');
+        }
+    });
+</script>
+</body>
+</html>
