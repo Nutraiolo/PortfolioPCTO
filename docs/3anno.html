@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esperienze 3° Anno · Evan Tronconi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #0d1117; color: #e6edf5; line-height: 1.55; }
+        :root {
+            --bg-page: #0d1117; --bg-card: #161b22; --bg-elevated: #1a212c;
+            --border: #2d3748; --border-light: #3a4559;
+            --primary: #e28c3c; --primary-dark: #c2712a; --primary-soft: #f0a55a;
+            --primary-glow: rgba(226, 140, 60, 0.12);
+            --text: #f0f4fa; --text-muted: #9aaec2;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        .page-header { background: linear-gradient(135deg, #0d1117, #0a0e14); border-bottom: 1px solid var(--border); padding: 2rem 0; }
+        .back-link { position: fixed; top: 1.5rem; left: 1.5rem; z-index: 100; background: var(--bg-card); border: 1px solid var(--border); border-radius: 40px; padding: 0.6rem 1.2rem; color: var(--text); text-decoration: none; font-size: 0.85rem; font-weight: 500; transition: 0.2s; display: inline-flex; align-items: center; gap: 0.5rem; backdrop-filter: blur(8px); }
+        .back-link:hover { border-color: var(--primary); color: var(--primary); transform: translateX(-3px); }
+        .header-content { text-align: center; }
+        .header-title { font-size: 2.5rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.5rem; background: linear-gradient(135deg, #ffffff, var(--primary-soft)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .header-subtitle { font-size: 1rem; color: var(--text-muted); }
+        .project-nav { background: var(--bg-card); border-bottom: 1px solid var(--border); padding: 0.75rem 0; position: sticky; top: 0; z-index: 99; backdrop-filter: blur(8px);margin-bottom: 2rem }
+        .project-nav-container { display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
+        .nav-buttons-left { display: flex; gap: 0.75rem; }
+        .nav-buttons-right { display: flex; gap: 0.75rem; }
+        .nav-center-group { display: flex; justify-content: center; gap: 0.75rem; flex: 1; }
+        .nav-project-btn { background: transparent; border: 1px solid var(--border); color: var(--text-muted); padding: 0.5rem 0; border-radius: 40px; font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: 0.2s; font-family: inherit; width: 140px; text-align: center; }
+        .nav-project-btn:hover { border-color: var(--primary); color: var(--primary); }
+        .nav-project-btn.active { background: var(--primary); border-color: var(--primary); color: #0d1117; }
+        .year-nav-btn { background: transparent; border: 1px solid var(--primary); color: var(--primary); padding: 0.5rem 0; border-radius: 40px; font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: 0.2s; font-family: inherit; width: 120px; text-align: center; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; }
+        .year-nav-btn:hover { background: var(--primary-glow); }
+        .year-nav-btn.next:hover { transform: translateX(3px); }
+        .spacer-btn { background: transparent; border: none; cursor: default; padding: 0.5rem 0; width: 120px; text-align: center; pointer-events: none; visibility: hidden; }
+        section { padding: 2.5rem 0; }
+        .project-page { display: none; }
+        .project-page.active-page { display: block; }
+        
+        /* Card generiche */
+        .exp-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 1.5rem; overflow: hidden; transition: 0.2s; margin-bottom: 2rem; }
+        .exp-card:hover { transform: translateY(-3px); border-color: var(--primary); }
+        .exp-card-header { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); padding: 0.8rem 1.5rem; }
+        .exp-card-header h2 { font-size: 1.3rem; font-weight: 600; color: #0d1117; }
+        .exp-card-content { display: flex; flex-wrap: wrap; gap: 1.5rem; padding: 1.8rem; }
+        .exp-card-content.reverse { flex-direction: row-reverse; }
+        .exp-image { flex: 1; min-width: 200px; }
+        .exp-image img { width: 100%; height: 220px; object-fit: cover; border-radius: 1rem; transition: 0.2s; }
+        .exp-text { flex: 2; }
+        .exp-text p { color: var(--text-muted); margin-bottom: 0.5rem; line-height: 1.6; }
+        .skills-list { list-style: none; margin-top: 1rem; }
+        .skills-list li { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.8rem; color: var(--text-muted); }
+        .skills-list li i { color: var(--primary); width: 1.4rem; }
+        .highlight-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 1.5rem; overflow: hidden; position: relative; margin-bottom: 2rem; }
+        .highlight-card::before { content: ''; position: absolute; top: 0; left: 0; width: 6px; height: 100%; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); }
+        .highlight-content { padding: 2rem; margin-left: 0.5rem; }
+        .highlight-content h2 { font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; }
+        .highlight-content p { color: var(--text-muted); line-height: 1.6; }
+        
+        /* Carosello per Monta e Smonta */
+        .carousel-title { font-size: 1.3rem; font-weight: 600; margin-bottom: 1.5rem; }
+        .carousel-container { display: flex; overflow-x: auto; gap: 1.2rem; padding: 0.5rem 0.2rem 1.5rem 0.2rem; scroll-snap-type: x mandatory; scrollbar-width: thin; scrollbar-color: var(--primary) var(--border);margin-bottom: 2rem }
+        .carousel-container::-webkit-scrollbar { height: 6px; }
+        .carousel-container::-webkit-scrollbar-track { background: var(--border); border-radius: 10px; }
+        .carousel-container::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+        .carousel-item { flex: 0 0 auto; scroll-snap-align: center; background: var(--bg-card); border: 1px solid var(--border); border-radius: 1rem; overflow: hidden; width: 300px; transition: 0.2s; }
+        .carousel-item:hover { transform: translateY(-4px); border-color: var(--primary); }
+        .carousel-item img { width: 100%; height: 180px; object-fit: cover; }
+        .carousel-item-content { padding: 1rem; text-align: center; }
+        .carousel-item-content h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--primary-soft); }
+        .carousel-item-content p { font-size: 0.8rem; color: var(--text-muted); }
+        
+        footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; color: var(--text-muted); font-size: 0.75rem; margin-top: 2rem; }
+        
+        @media (max-width: 900px) {
+            .project-nav-container { flex-direction: column; align-items: stretch; }
+            .nav-center-group { order: 1; }
+            .nav-buttons-left { order: 2; justify-content: center; }
+            .nav-buttons-right { order: 3; justify-content: center; }
+            .exp-card-content { flex-direction: column; }
+            .exp-card-content.reverse { flex-direction: column; }
+            .header-title { font-size: 1.8rem; }
+            .container { padding: 0 1.5rem; }
+            .highlight-content { padding: 1.5rem; }
+            .nav-project-btn, .year-nav-btn { width: 110px; font-size: 0.75rem; padding: 0.4rem 0; }
+            .spacer-btn { width: 110px; }
+        }
+    </style>
+</head>
+<body>
+
+<a href="home.html" class="back-link" id="backLink"><i class="fas fa-arrow-left"></i> Torna alla Home</a>
+
+<header class="page-header">
+    <div class="container header-content">
+        <h1 class="header-title">Esperienze 3° Anno</h1>
+        <p class="header-subtitle">PCTO · Percorsi per le Competenze Trasversali e l'Orientamento</p>
+    </div>
+</header>
+
+<div class="project-nav">
+    <div class="container project-nav-container">
+        <div class="nav-buttons-left">
+            <div class="spacer-btn"></div>
+        </div>
+        <div class="nav-center-group">
+            <button class="nav-project-btn" data-project="busconnect"> Busconnect</button>
+            <button class="nav-project-btn" data-project="monta"> Monta e Smonta</button>
+            <button class="nav-project-btn" data-project="ust"> UST</button>
+        </div>
+        <div class="nav-buttons-right">
+            <button class="year-nav-btn next" id="nextYearBtn">4° Anno →</button>
+        </div>
+    </div>
+</div>
+
+<main>
+    <div class="container">
+        <!-- BUSCONNECT -->
+        <div id="project-busconnect" class="project-page active-page">
+            <div class="highlight-card">
+                <div class="highlight-content">
+                    <h2>Il progetto "Nonni Smart"</h2>
+                    <p>Il progetto nasce con l'obiettivo di insegnare a persone anziane, affettuosamente chiamati "nonni", come utilizzare gli strumenti tecnologici. Ad avere le vesti di insegnanti eravamo noi studenti del Blaise Pascal. Il progetto si è svolto grazie alla collaborazione del Comune di Reggio Emilia che ha reso possibile la buona riuscita del progetto grazie alle numerose iscrizioni.</p>
+                </div>
+            </div>
+            <div class="exp-card">
+                <div class="exp-card-header"><h2>Riconoscimento delle difficoltà</h2></div>
+                <div class="exp-card-content reverse">
+                    <div class="exp-image"><img src="img/auser.jpg" alt="Difficoltà degli anziani" onerror="this.src='https://placehold.co/600x400/1a212c/9aaec2?text=Difficolt%C3%A0'"></div>
+                    <div class="exp-text"><p>Durante il progetto, abbiamo identificato le principali difficoltà degli anziani, come l'uso di smartphone, la comprensione delle applicazioni e la gestione della posta elettronica. Alcuni di loro avevano già una certa familiarità con la tecnologia, mentre altri partivano da zero e avevano bisogno di un supporto più costante. In base a questo, ci siamo adattati ad ogni esigenza, cercando di essere pazienti e di spiegare i concetti più volte se necessario, utilizzando esempi concreti e un linguaggio semplice per rendere tutto più comprensibile. Ci siamo resi conto che ognuno aveva un ritmo di apprendimento diverso, quindi abbiamo cercato di assecondare i tempi di ciascuno, senza fretta, in modo che nessuno si sentisse inadeguato o sotto pressione.</p></div>
+                </div>
+            </div>
+            <div class="exp-card">
+                <div class="exp-card-header"><h2>La mia esperienza</h2></div>
+                <div class="exp-card-content">
+                    <div class="exp-image"><img src="img/auser2.jpg" alt="Evan con gli anziani" onerror="this.src='https://placehold.co/600x400/1a212c/9aaec2?text=La+mia+esperienza'"></div>
+                    <div class="exp-text"><p>Nel mio gruppo ho avuto l'occasione di assistere due signore che avevano bisogno di supporto nell'uso del computer e del telefono. Le ho aiutate nella gestione dei file su entrambe le piattaforme, nell'utilizzo della stampante, nell'uso base di Word e nella navigazione su Internet, guidandole passo dopo passo in modo che potessero acquisire maggiore autonomia. Abbiamo lavorato insieme per diverse settimane e ho visto progressi tangibili: all'inizio erano titubanti, ma alla fine riuscivano a svolgere molte operazioni in autonomia.</p></div>
+                </div>
+            </div>
+            <div class="exp-card">
+                <div class="exp-card-header"><h2>Conclusioni</h2></div>
+                <div class="exp-card-content reverse">
+                    <div class="exp-image"><img src="img/auser4.jpg" alt="Conclusioni" onerror="this.src='https://placehold.co/600x400/1a212c/9aaec2?text=Conclusioni'"></div>
+                    <div class="exp-text"><p>Questo progetto mi ha insegnato molto più di quanto mi aspettassi. Ho dovuto trovare modi creativi per spiegare concetti complessi in termini semplici e concreti. Gli anziani hanno mostrato grande entusiasmo nell'apprendere nuove competenze, e noi studenti abbiamo avuto l'opportunità di sviluppare empatia, pazienza e capacità di comunicazione. È stata un'esperienza che mi ha fatto crescere non solo come studente ma anche come persona.</p></div>
+                </div>
+            </div>
+            <div class="highlight-card">
+                <div class="highlight-content">
+                    <h2>Competenze Acquisite</h2>
+                    <ul class="skills-list">
+                        <li><i class="fas fa-brain"></i> Problem solving rapido</li>
+                        <li><i class="fas fa-users"></i> Gestione gruppi di lavoro</li>
+                        <li><i class="fas fa-file-alt"></i> Organizzazione materiale didattico</li>
+                        <li><i class="fas fa-comments"></i> Comunicazione tecnica efficace</li>
+                        <li><i class="fas fa-heart"></i> Empatia e pazienza</li>
+                        <li><i class="fas fa-chalkboard-user"></i> Capacità di insegnare</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- MONTA E SMONTA -->
+        <div id="project-monta" class="project-page">
+            <div class="exp-card">
+                <div class="exp-card-header"><h2>Cosa ho fatto</h2></div>
+                <div class="exp-card-content">
+                    <div class="exp-image"><img src="img/Computer.jpg" alt="Foto attività Monta e Smonta" onerror="this.src='https://placehold.co/600x400/1a212c/9aaec2?text=Monta+e+Smonta'"></div>
+                    <div class="exp-text"><p>Durante questa esperienza, ho smontato e rimontato computer desktop, sostituito componenti hardware come RAM e CPU, e diagnosticato problemi hardware. Ho imparato a riconoscere i vari componenti interni di un PC, a comprendere la loro funzione e a intervenire in caso di malfunzionamenti. Ho smontato completamente il computer, rimosso e reinstallato la scheda madre, il dissipatore, l'alimentatore, l'hard disk e il lettore DVD. Ho anche sostituito la RAM e la CPU, e ho verificato il corretto funzionamento di ogni componente dopo il rimontaggio. Ho acquisito competenze pratiche nell'assemblaggio di PC, nella manutenzione hardware e nella risoluzione di problemi tecnici, lavorando in un ambiente collaborativo a piccolo gruppo.</p></div>
+                </div>
+            </div>
+
+            <div class="carousel-title">
+                <i class="fas fa-microchip" style="color: var(--primary); margin-right: 0.5rem;"></i> 
+                Le fasi del lavoro
+            </div>
+            <div class="carousel-container">
+                <div class="carousel-item">
+                    <img src="monta/1.jpg" alt="Fase 1" onerror="this.src='https://placehold.co/600x400/1a212c/9aaec2?text=Fase+1'">
+                    <div class="carousel-item-content"><h3>Passo 1</h3><p>Apertura del case con pannello laterale rimosso - visibili tutti i componenti interni nel loro alloggiamento originale.</p></div>
+                </div>
+                <div class="carousel-item">
+                    <img src="monta/2.jpg" alt="Fase 2" onerror="this.src='https://placehold.co/600x400/1a212c/9aaec2?text=Fase+2'">
+                    <div class="carousel-item-content"><h3>Passo 2</h3><p>Rimozione di hard disk, alimentatore e lettore DVD.</p></div>
+                </div>
+                <div class="carousel-item">
+                    <img src="monta/3.jpg" alt="Fase 3" onerror="this.src='https://placehold.co/600x400/1a212c/9aaec2?text=Fase+3'">
+                    <div class="carousel-item-content"><h3>Passo 3</h3><p>Rimozione della scheda madre e poi della RAM, dopo aver liberato spazio.</p></div>
+                </div>
+                <div class="carousel-item">
+                    <img src="monta/4.jpg" alt="Fase 4" onerror="this.src='https://placehold.co/600x400/1a212c/9aaec2?text=Fase+4'">
+                    <div class="carousel-item-content"><h3>Passo 4</h3><p>Rimozione del dissipatore.</p></div>
+                </div>
+                <div class="carousel-item">
+                    <img src="monta/5.jpg" alt="Fase 5" onerror="this.src='https://placehold.co/600x400/1a212c/9aaec2?text=Fase+5'">
+                    <div class="carousel-item-content"><h3>Passo 5</h3><p>Rimozione della CPU, il componente principale del PC.</p></div>
+                </div>
+            </div>
+
+            <div class="exp-card">
+                <div class="exp-card-header"><h2>Conclusioni</h2></div>
+                <div class="exp-card-content reverse">
+                    <div class="exp-image"><img src="img/Computer3.jpg" alt="Foto team Monta e Smonta" onerror="this.src='https://placehold.co/600x400/1a212c/9aaec2?text=Team'"></div>
+                    <div class="exp-text"><p>Questa esperienza mi ha permesso di mettere in pratica ciò che avevamo studiato in teoria, affrontando situazioni reali e imparando a gestire eventuali imprevisti. Alla fine del percorso, mi sono sentito più sicuro e consapevole delle mie capacità nel gestire un computer a livello hardware. La possibilità di smontare e rimontare un PC con le mie mani mi ha dato una comprensione molto più profonda del funzionamento dei componenti e delle loro interazioni.</p></div>
+                </div>
+            </div>
+
+            <div class="highlight-card">
+                <div class="highlight-content">
+                    <h2>Competenze Acquisite</h2>
+                    <ul class="skills-list">
+                        <li><i class="fas fa-microchip"></i> Conoscenza componenti hardware</li>
+                        <li><i class="fas fa-tools"></i> Assemblaggio e disassemblaggio PC</li>
+                        <li><i class="fas fa-wrench"></i> Manutenzione hardware</li>
+                        <li><i class="fas fa-search"></i> Diagnostica problemi</li>
+                        <li><i class="fas fa-users"></i> Lavoro di squadra</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- UST -->
+        <div id="project-ust" class="project-page">
+            <div class="highlight-card">
+                <div class="highlight-content">
+                    <h2>Introduzione al PCTO</h2>
+                    <p>Il PCTO è stato pensato per aiutare gli studenti a conoscere meglio il mondo del lavoro e a capire quale direzione prendere dopo la scuola. Attraverso esperienze pratiche e attività mirate, offre l'occasione di sviluppare sia competenze tecniche sia abilità più generali, come il saper lavorare in gruppo, comunicare in modo efficace o trovare soluzioni ai problemi.</p>
+                </div>
+            </div>
+            <div class="exp-card">
+                <div class="exp-card-header"><h2>Cosa ho fatto</h2></div>
+                <div class="exp-card-content">
+                    <div class="exp-image"><img src="img/ust.png" alt="Foto attività UST" onerror="this.src='https://placehold.co/600x400/1a212c/9aaec2?text=UST'"></div>
+                    <div class="exp-text"><p>Il professor Vairo ha illustrato in dettaglio i vari modelli di lavoro, spiegando la distinzione tra il lavoro subordinato, in cui si è dipendenti di un datore di lavoro con un contratto e delle mansioni definite, e quello autonomo, dove si opera in proprio, gestendo in prima persona i propri clienti e le proprie attività. Ha anche chiarito le aspettative che un'impresa ha nei confronti di noi giovani, come la puntualità, l'affidabilità, la capacità di lavorare in team e la voglia di imparare. Infine, ha delineato le modalità con cui potremmo entrare nel mondo del lavoro, illustrandoci i percorsi più comuni come stage, tirocini, apprendistato e contratti a tempo determinato, e dandoci consigli su come presentarci al meglio durante un colloquio.</p></div>
+                </div>
+            </div>
+            <div class="exp-card">
+                <div class="exp-card-header"><h2>Test e valutazione</h2></div>
+                <div class="exp-card-content reverse">
+                    <div class="exp-image"><img src="img/ust2.png" alt="Test online UST" onerror="this.src='https://placehold.co/600x400/1a212c/9aaec2?text=Test+online'"></div>
+                    <div class="exp-text"><p>Abbiamo avuto poi la possibilità di metterci subito alla prova con un test online per verificare quanto avevamo compreso. Il test ha valutato le nostre conoscenze sulle competenze trasversali e l'orientamento professionale, aiutandoci a riflettere sulle nostre attitudini.</p></div>
+                </div>
+            </div>
+            <div class="highlight-card">
+                <div class="highlight-content">
+                    <h2>Competenze Acquisite</h2>
+                    <ul class="skills-list">
+                        <li><i class="fas fa-compass"></i> Orientamento professionale</li>
+                        <li><i class="fas fa-calendar-alt"></i> Organizzazione del lavoro</li>
+                        <li><i class="fas fa-handshake"></i> Competenze Trasversali</li>
+                        <li><i class="fas fa-briefcase"></i> Conoscenza del mondo del lavoro</li>
+                        <li><i class="fas fa-chart-line"></i> Autovalutazione delle proprie attitudini</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="container">© 2026 Evan Tronconi. Tutti i diritti riservati.</div>
+</footer>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const progetto = urlParams.get('progetto');
+
+    const navBtns = document.querySelectorAll('.nav-project-btn');
+    const projectPages = document.querySelectorAll('.project-page');
+
+    function attivaProgetto(progettoId) {
+        navBtns.forEach(btn => {
+            if (btn.getAttribute('data-project') === progettoId) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+        projectPages.forEach(page => {
+            if (page.id === `project-${progettoId}`) {
+                page.classList.add('active-page');
+            } else {
+                page.classList.remove('active-page');
+            }
+        });
+    }
+
+    if (progetto === 'busconnect') {
+        attivaProgetto('busconnect');
+    } else if (progetto === 'monta') {
+        attivaProgetto('monta');
+    } else if (progetto === 'ust') {
+        attivaProgetto('ust');
+    } else {
+        attivaProgetto('busconnect');
+    }
+
+    navBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const projectId = btn.getAttribute('data-project');
+            attivaProgetto(projectId);
+            const newUrl = `${window.location.pathname}?progetto=${projectId}`;
+            window.history.pushState({}, '', newUrl);
+        });
+    });
+
+    const nextYearBtn = document.getElementById('nextYearBtn');
+    if (nextYearBtn) {
+        nextYearBtn.addEventListener('click', () => {
+            sessionStorage.setItem('scrollPosition', window.scrollY);
+            window.location.href = '4anno.html?progetto=polarity';
+        });
+    }
+
+    const backLink = document.getElementById('backLink');
+    backLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        sessionStorage.setItem('scrollPosition', window.scrollY);
+        window.location.href = backLink.getAttribute('href');
+    });
+
+    window.addEventListener('load', () => {
+        const savedPosition = sessionStorage.getItem('scrollPosition');
+        if (savedPosition !== null) {
+            window.scrollTo(0, parseInt(savedPosition));
+            sessionStorage.removeItem('scrollPosition');
+        }
+    });
+</script>
+</body>
+</html>
